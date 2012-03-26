@@ -1,0 +1,26 @@
+	ssh tunnel
+			Neil <freeordie.k@gmail.com>
+
+Index
+1 ssh翻墙
+2 ssh tunnel
+
+之前不太会用ssh，而且似乎之前的同事玩过我也没重视起来。现在需要用ssh来翻墙用到了-D选项，顺便看看ssh的tunnel相关知识。
+
+1 ssh翻墙
+只要有可以连接到gfw外面的ssh server就可以了，假如叫做fuckgfw.com。在console中运行：
+ ssh -fND 7777 username@fuckgfw.com
+其中：
+  -f意思是后台运行（我怎么都觉得它是foreground的简写涅）
+  -N：不运行任何命令
+  -D：绑定socket到一个端口（这里是7777）
+
+命令完成后，在浏览器的代理服务器中SOCKS中填入127.0.0.1:7777即可翻墙
+对于firefox有个插件叫做autoproxy，很好用
+
+2 ssh tunnel
+这里要提到的两个选项是-R & -L选项
+
+ref：
+1 上班族ssh tunnel求生手冊
+  http://www.ubuntu-tw.org/modules/newbb/viewtopic.php?viewmode=compact&topic_id=17538&forum=7
