@@ -1,0 +1,19 @@
+kernel
+1 kernel bootup (x86, arm, ppc)
+2 keyboard driver
+3 alsa driver
+4 network
+
+API
+0 time/timer related
+1 pthread related
+2 aio
+3 memory related
+
+python
+1 bitbake data stream
+2 bitbake AST (compilers)
+3 python (internal) bugs fix
+
+Misc:
+1 autoconf book chapter 3 & 4
