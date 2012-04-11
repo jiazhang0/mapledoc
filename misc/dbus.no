@@ -1,0 +1,63 @@
+dbus
+
+1 What is dbus?
+dbus is an inter-processes communication mechanism which run on the same host. And it pass binary data which is its advantage. Both one-to-one messaging and publish/subscribe communication are supported.
+
+--------------
+2 Components
+2.1 Buses
+* system bus
+* session bus
+
+2.2 Address
+Present buses. A bus address will typically be the filename of a Unix-domain socket such as "/tmp/.hiddensocket,"
+
+2.3 Connections
+A client process opens and uses a connection to the bus. It is identified by "bus name". Note that bus names are the names of connections on the bus, not names of buses.
+* unique connection name: ":34-907"
+* well-known name: "com.acme.PortableHole"
+
+2.4 Configuration files
+* /etc/dbus-1/system.conf
+* /etc/dbus-1/session.conf
+
+--------------
+3 Object Model
+3.1 Objects
+Object is identified by a path such as /com/mycompany/TextFileManager. So that's why I mixed the BUS and Object. 
+
+An object is created by a *client* process and exists within the context of that client's connection to the bus. The object is a way for the client process to offer its services on the bus--but one client may create any number of objects.
+
+Object不是应该存在在BUS上面吗？ 
+
+3.2 Proxy --> 这个概念不懂
+
+3.3 Methods
+3.4 Signal
+3.5 Interface
+
+
+--------------------------------------------------------------------------------------------------
+A...	  | is identified by a(n)...| which looks like...		| and is chosen by...
+Bus	  | address	   | unix:path=/var/run/dbus/system_bus_socket 	| system configuration
+Connection| bus name	   | :34-907(unique) or 			| D-Bus (unique) or
+			     com.mycompany.TextEditor(well-known)	  the owning program (well-known)
+Object	  | path	   | /com/mycompany/TextFileManager 		| the owning program
+Interface | interface name | org.freedesktop.Hal.Manager		| the owning program
+Member    | member name    | ListNames					| the owning program
+--------------------------------------------------------------------------------------------------
+* the Connection is identified by a "bus name" make me confusing
+
+Ref
+1 http://www.freedesktop.org/wiki/IntroductionToDBus 
+  中文：http://www.freeworkzz.com/html/2010/07/dbus%E4%BB%8B%E7%BB%8D.html
+2 http://dbus.freedesktop.org/doc/dbus-python/doc/tutorial.html
+3 http://www.freedesktop.org/wiki/Software/dbus
+
+PS:
+* check the source of dbus-send etc.
+* if I want to give a small talk, then cover 
+1 what is dbus, why choose it（之前kde的dcop和gnome是CORBA为什么不好）
+2 dbus的原理，各个组成部分
+3 例子：dbus-send之类的命令和程序(python)
+
