@@ -1,0 +1,10 @@
+问题：
+connman启动后不能在matchbox-panel的systray中显示？
+1 定位问题
+  |-- 不是图片的问题
+  |-- connman-gnome更新在Dec 22, 2011
+      matchbox-panel更新在Feb 13, 2012
+  |-- 忘记检查了connman了，更新在Mar 6， 2012. 就是它的问题了
+2 解决问题
+  |--开始以为是dbus的配置文件问题，而且修改后的确出现过
+  |--Paul来信是API的问题，他来解决
