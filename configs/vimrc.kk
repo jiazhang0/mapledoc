@@ -15,7 +15,10 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 Bundle 'tpope/vim-fugitive'
+
 Bundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_leader_key = ','
+
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails.git'
 " vim-scripts repos
