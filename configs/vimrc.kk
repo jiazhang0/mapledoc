@@ -1,3 +1,5 @@
+" kk's vim profile <freeordie.k@gmail.com>
+
 " from https://github.com/gmarik/vundle
 set nocompatible               " be iMproved
 filetype off                   " required!
@@ -37,6 +39,7 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 " end from vundle
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Bundle "Lokaltog/powerline", {'rtp': 'powerline/bindings/vim/'}
 "powerline{
@@ -45,3 +48,27 @@ filetype plugin indent on     " required!
 "set t_Co=256
 "let g:Powerline_symbols = 'fancy'
 "}
+
+set ai
+set hlsearch
+set incsearch
+set cursorline
+highlight CursorLine ctermbg=lightgray
+
+map <F2> <Esc>:Tlist<CR>
+
+"for python set
+function PythonSet()
+        let l:filename = bufname("%")
+        let l:line = getline(1)
+        if l:line =~ "^#!.*python" || l:filename =~ ".*\.py"
+                set cursorcolumn
+                set expandtab
+                set ts=4
+                set sw=4
+                set foldmethod=indent
+        endif
+endfunction
+
+au BufReadPost * call PythonSet()
+
