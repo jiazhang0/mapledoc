@@ -2,7 +2,7 @@
 
 echo 'source bashrc.kk'
 
-# for ls output
+# show Capital files first
 export LC_COLLATE=C
 
 # alias
