@@ -11,8 +11,6 @@ call vundle#rc()
 " required! 
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
-"
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 
@@ -42,15 +40,15 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 " end from vundle
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"Bundle "Lokaltog/powerline", {'rtp': 'powerline/bindings/vim/'}
-"powerline{
-"set laststatus=2
-"set encoding=utf-8
-"set t_Co=256
-"let g:Powerline_symbols = 'fancy'
-"}
+Bundle "Lokaltog/powerline", {'rtp': 'powerline/bindings/vim/'}
+" powerline{
+set laststatus=2
+set encoding=utf-8
+set t_Co=256
+let g:Powerline_symbols = 'fancy'
+" }
 
 set ai
 set hlsearch
@@ -61,7 +59,7 @@ highlight CursorLine ctermbg=lightgray
 map <F2> <Esc>:Tlist<CR>
 
 "for python set
-function PythonSet()
+function! PythonSet()
         let l:filename = bufname("%")
         let l:line = getline(1)
         if l:line =~ "^#!.*python" || l:filename =~ ".*\.py"
