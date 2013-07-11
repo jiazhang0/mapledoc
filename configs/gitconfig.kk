@@ -14,3 +14,6 @@
 	co = checkout
 	new = !gitk --all --not ORIG_HEAD
 	br = branch
+
+[sendemail]
+        confirm = always
