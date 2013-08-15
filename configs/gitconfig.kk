@@ -17,3 +17,6 @@
 
 [sendemail]
         confirm = always
+
+# for sendemail via gmail
+# --smtp-server=smtp.gmail.com  --smtp-server-port 587 --smtp-encryption=tls --smtp-user jiashuo.kang

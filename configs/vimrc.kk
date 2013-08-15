@@ -50,6 +50,15 @@ set t_Co=256
 let g:Powerline_symbols = 'fancy'
 " }
 
+" Bundle "Valloric/YouCompleteMe"
+" YouCompleteMe {
+let g:ycm_global_ycm_extra_conf = 'YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_confirm_extra_conf = 0
+" }
+
+" Begin custom settings
 set ai
 set hlsearch
 set incsearch
@@ -67,7 +76,7 @@ function! PythonSet()
                 set expandtab
                 set ts=4
                 set sw=4
-                set foldmethod=indent
+"                set foldmethod=indent
         endif
 endfunction
 

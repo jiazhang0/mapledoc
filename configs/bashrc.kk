@@ -18,5 +18,5 @@ shopt -s histappend
 PROMPT_COMMAND='history -a'
 
 # for python
-export PYTHONSTARTUP=`pwd`/pythonstartup.py
+export PYTHONSTARTUP=$HOME/git/mapledoc/configs/pythonstartup.py
 
