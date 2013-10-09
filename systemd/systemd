@@ -1,0 +1,28 @@
+systemd笔记
+
+1 systemd由Fedora的Lennart Poettering开发
+2 systemd基于单元unit的概念, unit 有以下几种类型：
+  * service: 
+  * socket: 不明白
+  * device: 每一个使用 udev 规则标记的设备都将会在 systemd 中作为一个设备 unit 出现
+  * mount:
+  * automount:
+  * target: 此类 unit 为其他 unit 进行逻辑分组
+  * snapshot:
+
+3 工具
+  * systemctl
+  * systemd-cgls
+  * systemadm: developing
+ 
+4 内核启动命令行
+  为了重载需要激活的 unit ，systemd 通过 systemd.unit= 命令行选项解析其自己的 kernel 命令行参数。
+  * systemd.unit=rescue.target 
+  * systemd.unit=emergency.target
+  * systemd.utit=multi-user.target
+  * systemd.unit=graphical.target
+  * ...
+
+
+Ref:
+1 https://fedoraproject.org/wiki/Systemd/zh-cn
