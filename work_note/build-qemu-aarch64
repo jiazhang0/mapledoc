@@ -1,0 +1,37 @@
+Build QEMU aarch64 from openSUSE
+
+Author:      Neil <freeordie.k at gmail.com>
+Last Update: October 9, 2013
+
+1 Repositories:
+Linaro:
+  git://git.linaro.org/people/pmaydell/qemu-aarch64.git
+openSUSE:
+  https://github.com/openSUSE/qemu.git
+
+As Randy told me that some core developer left Linaro, so the developemnt is suspended. openSUSE toke over the flag, so check the openSUSE repo.
+
+2 Build
+  * git clone https://github.com/openSUSE/qemu.git openSUSE-qemu
+  * cd openSUSE-qemu
+  * git checkout -b aarch64-work origin/aarch64-work
+  * git submodule update --init dtc
+  * mkdir build; cd build; ../configure --target-list=aarch64-softmmu --enable-kvm --enable-fdt; make;
+    then it fails with somethings are not defined:
+-------------------------------------
+  CC    aarch64-softmmu/hw/arm/boot.o
+  /home/neil/git/qemu-aarch64/hw/arm/boot.c: In function 「do_cpu_reset」:
+  /home/neil/git/qemu-aarch64/hw/arm/boot.c:350:35: 錯誤： 「PSR_D_BIT」 undeclared (first use in this function)
+  /home/neil/git/qemu-aarch64/hw/arm/boot.c:350:35: 附註： each undeclared identifier is reported only once for each function it appears in
+  /home/neil/git/qemu-aarch64/hw/arm/boot.c:350:47: 錯誤： 「PSR_A_BIT」 undeclared (first use in this function)
+  /home/neil/git/qemu-aarch64/hw/arm/boot.c:350:59: 錯誤： 「PSR_I_BIT」 undeclared (first use in this function)
+  /home/neil/git/qemu-aarch64/hw/arm/boot.c:350:71: 錯誤： 「PSR_F_BIT」 undeclared (first use in this function)
+  /home/neil/git/qemu-aarch64/hw/arm/boot.c:350:83: 錯誤： 「PSR_MODE_EL1h」 undeclared (first use in this function)
+  make[1]: *** [hw/arm/boot.o] Error 1
+  make: *** [subdir-aarch64-softmmu] Error 2
+-------------------------------------
+
+They are defined in arch/arm64/include/uapi/asm/ptrace.h, add these definitions could make compile pass.
+
+At last, I searched qemu-devel maillist that it seems build and run qemu-aarch64 on regular x86-64 is not ready yet.
+
