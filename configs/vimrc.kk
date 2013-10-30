@@ -82,3 +82,10 @@ endfunction
 
 au BufReadPost * call PythonSet()
 
+" folding
+set foldenable
+" set foldopen=all
+" set foldclose=all
+set foldmethod=syntax
+" setlocal foldlevel=1
+set foldcolumn=2
