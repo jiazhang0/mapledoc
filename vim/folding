@@ -1,0 +1,28 @@
+Vim folding notes
+
+"set foldcolumn=4
+
+zf      F-old creation
+zd	delete a fold at the cursor
+zD	delete all folds at the cursor line
+
+zo      O-pen a fold                                                          
+zc      C-lose a fold
+zO	open all folds
+zC	close all folds
+
+zr	R-educe the folding
+zm	folds M-ore
+zR	R-educes folds until there are none left
+zM	folds M-ore and M-ore
+
+zn	disable the folding
+zN	bring back the folding
+zi	toggle between disable and enable
+
+:mkview [N]	save the folds
+:loadview [N]   N <= 10
+
+:set foldmethod=indent
+:set foldmethod=marker
+:set foldlevel=3
