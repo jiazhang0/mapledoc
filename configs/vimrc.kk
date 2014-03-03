@@ -86,6 +86,6 @@ au BufReadPost * call PythonSet()
 set foldenable
 " set foldopen=all
 " set foldclose=all
-set foldmethod=syntax
+" set foldmethod=syntax
 " setlocal foldlevel=1
-set foldcolumn=2
+" set foldcolumn=3
