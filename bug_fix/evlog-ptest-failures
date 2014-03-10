@@ -1,0 +1,36 @@
+# Note for fix evlog ptest cases in WRLinux 6.0 CGP
+# Mar 10, 2014
+
+Questions：
+1 command evlgentmpls needs its 2nd parameter has a '.log' section
+2 evlog assume the size of 'long double' on powerpc is 8 bytes, but right now is 16 byte.
+
+Answers:
+1 check the way why '.log' section is created. Search a lot but no result. When check
+  http://evlog.sourceforge.net/evlgentmpls.html, it says:
+
+  When you compile a C file containing calls to syslogat(), information
+  about each call is recorded in the .log section of the resulting object file.
+
+  But I don't know why '.log' section doesn't be created even syslogat() are called.
+
+  At last modificate the test case. Check section in object file first. If no such section, SKIP it.
+
+2 The fix is simple, pass "-mlong-double-64" to compiler.
+
+  But the process to fix this problem is not right. Of course, I thought the gcc parameter first. But I
+  didn't got the answer somehow. Maybe I should read the gcc manual one option by another.
+
+  Then I try to fix it by modificate its source code. Then I learn the format of float, double and
+  long double. But it seems beyond my capbility. The size of 'long double' is 12 bytes on x86 while 16 bytes
+  on powerpc. It is hard to finish the convert. I even thought to read the source code of perl or python.
+  There must be such convert functions.
+
+  Luckly, during the writing code, I got the gcc option to fix it.
+
+What I learn:
+DON'T PANIC.
+
+Refs:
+1 http://www.amath.unc.edu/sysadmin/DOC4.0/common-tools/numerical_comp_guide/ncg_math.doc.html
+2 http://blogs.perl.org/users/rurban/2012/09/reading-binary-floating-point-numbers-numbers-part2.html
