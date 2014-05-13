@@ -1,0 +1,10 @@
+Howto run postinst scripts in Yocto
+
+2014 May 13
+
+Howto run postinst scripts in Yocto, it uses package run-postinst.
+
+Whether package-management in IMAGE_FEATURES or not, package run-postinst is installed into image that rpm/ipk depend on it. It checks post install scripts file in /etc/${PM}-postinsts. Run them then remove them.
+
+How the postinstall script files are created?
+They are created by do_rootfs in lib/oe/rootfs.py and package_manager.py.
