@@ -9,6 +9,7 @@ export LC_COLLATE=C
 alias m='make'
 alias ll='ls -l'
 alias grep='grep --color'
+alias cp='cp -v'
 
 shopt -s autocd
 shopt -s cdspell
