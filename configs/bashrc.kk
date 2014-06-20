@@ -10,6 +10,7 @@ alias m='make'
 alias ll='ls -l'
 alias grep='grep --color'
 alias cp='cp -v'
+alias mv='mv -v'
 
 shopt -s autocd
 shopt -s cdspell
