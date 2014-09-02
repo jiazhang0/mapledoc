@@ -1,0 +1,29 @@
+# This is a template for self-management.
+#
+# Update: October 17, 2013
+#
+# 1 Plan: What will I do TODAY?
+#
+# 2 Check: 
+#   Which targets are finished? And do they need note?
+#   Which targets are delayed? Why? Under-estimated? Or work not so hard?
+#
+# 3 Introspectiion: right word?
+#   What did I learn and get today? What is the advantage than yesterday?
+
+Todo Today:
+1 Copy and update lua recipe from meta-oe, then develop ptest(50%)
+2 LSB cmd check, library check
+
+Check:
+
+Done:
+1 No ptest shows. Update lua to 5.2.2 almost done. Need build tomorrow.
+2 LSB related: because grep issue, no time to deal.
+3 Fix 'grep -r' doesn't read pipeline issue
+
+Delayed:
+1 hope this is empty
+
+Introspection:
+git submodules
