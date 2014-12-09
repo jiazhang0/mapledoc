@@ -1,0 +1,15 @@
+linux log system
+
+All I can say is that most linux distributions use rsyslog as default log system. It replace the old syslogd and klogd(right?). 
+
+It has many configure files, and the most important one is /etc/rsyslog.conf. It also has a file /etc/rsyslog.d/50-default.conf to define the exact log file. For example, system call syslog(3) logs information to /var/log/syslog is defined there.
+
+
+/var/log/lastlog: lastlog 
+/var/log/message: # dmesg output the content of the kernel buffer, the buffer maybe overwrite.
+/var/log/secure:  
+/var/log/btmp:    lastb
+/var/log/wtmp:    last
+/var/log/utmp:    who/w
+
+As with systemd distribution, it has systemd its own log system.
