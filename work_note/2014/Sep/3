@@ -1,0 +1,30 @@
+# This is a template for self-management.
+#
+# Update: October 17, 2013
+#
+# 1 Plan: What will I do TODAY?
+#
+# 2 Check: 
+#   Which targets are finished? And do they need note?
+#   Which targets are delayed? Why? Under-estimated? Or work not so hard?
+#
+# 3 Introspection:
+#   What did I learn and get today? What is the advantage than yesterday?
+#
+
+Todo Today:
+1 close mariadb CVE issues 
+2 verify lib32-coreutils patch then send to upstream
+3 Fix aarch64 build world failures
+
+Check:
+
+Done:
+1 
+2 
+
+Delayed:
+
+
+Introspection:
+terminfo: theory and related commands
