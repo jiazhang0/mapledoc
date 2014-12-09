@@ -1,0 +1,7 @@
+
+
+Format of definition:
+[language[_territory][.codeset][@modifier]]
+
+database at:
+/usr/share/i18n/locales/zh_CN 
