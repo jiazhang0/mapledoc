@@ -11,7 +11,10 @@ systemd笔记
   * snapshot:
 
 3 工具
-  * systemctl
+  * systemctl:
+    |- systemctl <command> target
+    |- commands: status start stop restart enable ...
+
   * systemd-cgls
   * systemadm: developing
  
