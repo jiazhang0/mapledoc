@@ -1,0 +1,40 @@
+winver		检查Windows版本
+dxdiag		检查DirectX信息
+mem.exe		显示内存使用情况
+Sndvol32	音量控制程序
+sfc.exe		系统文件检查器
+gpedit.msc 	组策略 
+regedit.exe 	注册表 
+Msconfig.exe 	系统配置实用程序 
+cmd.exe CMD	命令提示符 
+chkdsk.exe 	Chkdsk磁盘检查
+mem.exe		显示内存使用情况
+gpedit.msc 	组策略 
+regedit.	exe 注册表 
+Msconfig.exe 	系统配置实用程序 
+cmd.exe CMD	命令提示符 
+services.msc 	服务
+lusrmgr.msc 	本地账户管理
+drwtsn32 	系统医生
+cleanmgr 	整理
+iexpress 	木马捆绑工具，系统自带
+mmc 		控制台
+dcpromo 	活动目录安装
+ntbackup 	系统备份和还原
+rononce -p 15	秒关机
+taskmgr 	任务管理器
+conf 		启动netmeeting
+devmgmt.msc 	设备管理器
+diskmgmt.msc 	NT的磁盘管理器
+compmgmt.msc 	计算机管理
+winchat 	局域网聊天
+dvdplay 	DVD播放器
+mplayer2 	简易windows media player
+mspaint 	画图板
+nslookup 	网络管理的工具
+syskey 		系统加密，一旦加密就不能解开，保护windows xp系统的双重密码
+wupdmgr 	WIDNOWS UPDATE
+Clipbrd 	剪贴板查看器
+Odbcad32 	ODBC数据源管理器
+Nslookup 	IP地址侦测器
+
