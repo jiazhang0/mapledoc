@@ -1,0 +1,3 @@
+* m4 --> M + following 4 letters (Macro)
+* autoconf中方括号([])是用来区分token间隔的，防止m4的解释器出错
+*

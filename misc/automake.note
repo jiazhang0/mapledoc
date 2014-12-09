@@ -1,0 +1,38 @@
+关于Makefile.am中变量的格式
+ref：Autotools: A Practioner's Guide Chapter 5 Page 126
+
+Product List Variables:
+format:
+  [modifier-list]prefix_PRIMARY = product1 product2 ... productN
+
+例如：bin_PROGRAMS = jupiter
+
+------------------------------------------------------------------
+* prefix(前缀)
+安装前缀：
+1 Table 2-1 on page 46.
+2 pkglibdir, pkgincludedir, pkgdatadir, and pkglibexecdir
+
+非安装前缀：
+noinst check EXTRA
+ 
+------------------------------------------------------------------
+PRIMARY:
+|- PROGRAMS
+|- LIBRARIES / LTLIBRARIES ：只能安装到$(libdir)和$(pkglibdir)
+|- PYTHON
+|- JAVA
+|- SCRIPTS
+|- DATA
+|- HEADERS
+|- MANS
+|- TEXINFOS
+
+AM_MAINTAINER_MODE ???
+
+GCS: GNU Coding Standard
+
+Page 45: Standard Variables
+
+
+
