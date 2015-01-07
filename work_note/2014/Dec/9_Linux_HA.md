@@ -2,14 +2,11 @@
 
 ** Kai Kang <kai.kang@windriver.com> **
 
-** Create date: Dec 09, 2014 **
-
-** Last update: Dec 10, 2014 **
 
 ## 什么是集群？
 集群是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理。一个客户与集群相互作用时，集群像是一个独立的服务器。集群配置是用于提高可用性和可缩放性。
 
-其目的是为了实现将多台计算机组合以来完成特定的任务，比如天气预报，大型网络游戏，这些都需要很大的运算量，单台计算机实现成本太高，而且不显示。那么就需要通过集群的方式，将废弃的或者正在使用的计算机联合起来，结合整体的力量来解决这些问题。
+其目的是为了实现将多台计算机组合以来完成特定的任务，比如天气预报，大型网络游戏，这些都需要很大的运算量，单台计算机实现成本太高，而且不现实。那么就需要通过集群的方式，将废弃的或者正在使用的计算机联合起来，结合整体的力量来解决这些问题。
 
 
 ### 主要优点
@@ -75,18 +72,31 @@ Novell收购SuSE之后，将Novell netware上的Novell Cluster Service整合移�
 
 ### 以linux-HA构建高可用集群
 
-***
-#### linux-HA架构 **FIXME**
+#### linux-HA架构 
 
 两种方式构建linux-ha
 - pacemaker + corosync
-
-***
 - pacemaker + heartbeat
-***
 
 ##### pacemaker
-集群资源管理器（crm）
+   pacemaker(心脏起搏器)，是一个群集资源管理器。它实现最大可用性群集服务（亦称资源管理）的节点和资源级故障检测和恢复使用您的首选集群基础设施（OpenAIS的或Heaerbeat）提供的消息和成员能力。
+   它可以做乎任何规模的集群，并配备了一个强大的依赖模型，使管理员能够准确地表达群集资源之间的关系（包括顺序和位置）。几乎任何可以编写脚本，可以管理作为心脏起搏器集群的一部分。
+
+![](pics/pacemaker_internal.png)
+
+###### 群集组件说明
+
+- stonithd：心跳系统。
+- lrmd：本地资源管理守护进程。它提供了一个通用的接口支持的资源类型。直接调用资源代理（脚本）。
+- pengine：政策引擎。根据当前状态和配置集群计算的下一个状态。产生一个过渡图，包含行动和依赖关系的列表。
+- CIB：群集信息库。包含所有群集选项，节点，资源，他们彼此之间的关系和现状的定义。同步更新到所有群集节点。
+- CRMD：集群资源管理守护进程。主要是消息代理的PEngine和LRM，还选举一个领导者（DC）统筹活动（包括启动/停止资源）的集群。
+- Heartbeat：心跳消息层，OpenAIS的一种替代。
+- CCM：共识群集成员，心跳成员层。
+
+###### 功能概述
+   CIB使用XML表示集群的集群中的所有资源的配置和当前状态。CIB的内容会被自动在整个集群中同步，使用PEngine计算集群的理想状态，生成指令列表，然后输送到DC（指定协调员）。Pacemaker 集群中所有节点选举的DC节点作为主决策节点。如果当选DC节点宕机，它会在所有的节点上， 迅速建立一个新的DC。DC将PEngine生成的策略，传递给其他节点上的LRMd（本地资源管理守护程序）或CRMD通过集群消息传递基础结构。当集群中有节点宕机，PEngine重新计算的理想策略。在某些情况下，可能有必要关闭节点，以保护共享数据或完整的资源回收。为此，Pacemaker配备了stonithd设备。STONITH可以将其它节点“爆头”，通常是实现与远程电源开关。Pacemaker会将STONITH设备，配置为资源保存在CIB中，使他们可以更容易地监测资源失败或宕机。
+
 
 ##### corosync
 ##### 由来
@@ -106,70 +116,228 @@ Novell收购SuSE之后，将Novell netware上的Novell Cluster Service整合移�
 - 一个定额的系统（A quorum  syste）,定额完成或者丢失时通知应用程序。
 
 
-![](pics/pacemaker_internal.png)
-
-
-从上图中我们可以看到，不管heartbeat，还是corosync都是高可用集群中的Cluster Messaging Layer（集群信息层），是主要传递发集群信息与心跳信息的，并没有资源管理功能，资源管理还得依赖于上层的crm(Cluster resource Manager，集群资源管理器)，最著名的资源管理器，就是pacemaker，它是heartbeat v3分离出去的子项目。而现在corosync+pacemaker成了高可用集群中的最佳组合。
-
-心跳线会定期在各个节点间交换数据消息，在指定的周期内备份节点没有接收到心跳信息，那么将进行故障转移由备用节点接管群集，对外提供服务 。
-
 ##### Steps to build an HA
-We use 2 virtual machines as our cluster nodes. Ubuntu 12.04 is the primary node,
-Fedora 21 is the secondary node.
+借助一个virtualbox的虚拟机，和主机组成两个节点的集群。
 
 primary node:
 	hostname: ha1-ubuntu
-	IP: 128.224.163.169
+	IP: 128.224.162.160
 
 secondary node:
-	hostname: ha2-f21
-	IP: 128.224.163.191
+	hostname: pek-kkang-d1
+	IP: 128.224.162.231
 
 
 ###### 各节点之间主机名互相解析
 On ha1-ubuntu:
-root@ha1-ubuntu:~# echo "128.224.163.169 ha1-ubuntu ha1-ubuntu" >> /etc/hosts
-root@ha1-ubuntu:~# echo "128.224.163.191 ha2-f21 ha2-f21" >> /etc/hosts
+root@ha1-ubuntu:~# echo "128.224.162.231 pek-kkang-d1" >> /etc/hosts
 
 On ha2-f21:
-***FIXME***
+[root@localhost ~]# echo "128.224.163.169 ha1-ubuntu ha1-ubuntu" >> /etc/hosts
 
 ###### 同步时间
     # ntpdate cn.pool.ntp.org
 
 ###### ssh互通
+On ha1-ubuntu:
 
+    root@ha1-ubuntu:~# ssh-keygen
+    root@ha1-ubuntu:~# ssh-copy-id -i .ssh/id_rsa.pub root@pek-kkang-d1
 
+On pek-kkang-d1
 
+    [root@localhost ~]# ssh-keygen
+    [root@localhost ~]# ssh-copy-id -i .ssh/id_rsa.pub root@ha1-ubuntu
 
-corosync:
-2 versions
-1.x
-2.3.
+###### 配置corosync
+将corosync.conf.example拷贝为默认配置文件/etc/corosync/corosync.conf
+- 将totem:interface的bindnetaddr字段修改为所在网段。
+- 配置logging部分：
+      logging {
+        ...
+        to_logfile: yes
+        logfile: /var/log/corosync/corosync.log
+      }
 
+- 启用pacemaker:
 
+      service { 
+        ver: 1  
+        name: pacemaker  
+      }
 
+###### 启动corosync和pacemaker
+On ha1-ubuntu:
 
+    root@ha1-ubuntu:~# corosync
+    # check output in log file
+    root@ha1-ubuntu:~# grep -e "corosync.*network interface" -e "Corosync Cluster Engine" /var/log/corosync/corosync.log
+    root@ha1-ubuntu:~# grep "TOTEM" /var/log/corosync/corosync.log
+    # start pacemaker
+    root@ha1-ubuntu:~# service pacemaker start
 
+在pek-kkang-d1上一样的设置。
 
+On ha1-ubuntu:
 
+    # check nodes online
+    root@ha1-ubuntu:~# crm_mon
+    ...
+    Current DC: ha1-ubuntu (14721961) - partition with quorum
+    Version: 1.1.10-42f2063
+    2 Nodes configured
+    0 Resources configured
+    
+    
+    Online: [ ha1-ubuntu pek-kkang-d1 ]
+    
 
+###### 准备http服务
+    root@ha1-ubuntu:~# apt-get install apache2
 
+    
+##### crm shell
+crm shell自pacemake中分离出来，在ubuntu中由crmsh提供。
 
++ 查看一下默认配置
 
+      root@ha1-ubuntu:~# crm
+      crm(live)# status 
+      Last updated: Fri Dec 12 06:42:04 2014
+      Last change: Fri Dec 12 06:38:09 2014 via crmd on pek-kkang-d1
+      Stack: corosync
+      Current DC: pek-kkang-d1 (14721767) - partition with quorum
+      Version: 1.1.10-42f2063
+      2 Nodes configured
+      0 Resources configured
+      
+      Online: [ ha1-ubuntu pek-kkang-d1 ]
+      crm(live)# 
 
++ 检测一下配置文件是否有错
 
+      crm(live)# configure 
+      crm(live)configure# verify 
+         error: unpack_resources: 	Resource start-up disabled since no STONITH resources have been defined
+         error: unpack_resources: 	Either configure some or disable STONITH with the stonith-enabled option
+         error: unpack_resources: 	NOTE: Clusters with shared data need STONITH to ensure data integrity
+      Errors found during check: config not valid
+      # STONITH resources 没有定义。我们没有这个设备，关闭这个属性
+      crm(live)configure# property stonith-enabled=false
+      crm(live)configure# show
+      node $id="14721767" pek-kkang-d1
+      node $id="14721961" ha1-ubuntu
+      property $id="cib-bootstrap-options" \
+      	dc-version="1.1.10-42f2063" \
+      	cluster-infrastructure="corosync" \
+      	stonith-enabled="false"
+      crm(live)configure# verify 
+      crm(live)configure# 
 
++ 查看当前集群系统所支持的类型
 
+      crm(live)# ra
+      crm(live)ra# classes
+      lsb
+      ocf / heartbeat pacemaker redhat
+      service
+      Hstonith
+      upstart
+      crm(live)ra# 
 
++ 查看某种类别下的所用资源代理的列表
 
+      crm(live)ra# list lsb
+      acpid                  anacron                apache2                apparmor               apport
+      avahi-daemon           bluetooth              brltty                 console-setup          corosync
+      corosync-notifyd       cron                   cups                   cups-browsed           dbus
+      dns-clean              friendly-recovery      grub-common            halt                   irqbalance
+      kerneloops             killprocs              kmod                   lightdm                logd
+      networking             ondemand               openhpid               pacemaker              pppd-dns
+      procps                 pulseaudio             rc                     rc.local               rcS
+      reboot                 resolvconf             rsync                  rsyslog                saned
+      sendsigs               single                 speech-dispatcher      ssh                    sudo
+      udev                   umountfs               umountnfs.sh           umountroot             unattended-upgrades
+      urandom                vboxadd                vboxadd-service        vboxadd-x11            x11-common
+      crm(live)ra# list ocf pacemaker
+      ClusterMon    Dummy         HealthCPU     HealthSMART   Stateful      SysInfo       SystemHealth  controld
+      o2cb          ping          pingd 
 
++ 查看某个资源代理的配置方法
 
-corosync: from openais 0.9
-pacemaker: heartbeat3's crm
+      crm(live)ra# info lsb:corosync
+      corosync cluster framework (lsb:corosync)
+      
+      corosync
+      
+      Operations' defaults (advisory minimum):
+      
+          start         timeout=15
+          stop          timeout=15
+          status        timeout=15
+          restart       timeout=15
+          force-reload  timeout=15
+          monitor       timeout=15 interval=15
 
-什么叫做心跳
++ 创建一个IP地址资源
 
-#### 实例
-***
+      crm(live)# configure 
+      crm(live)configure# primitive  
+      usage: primitive <rsc> {[<class>:[<provider>:]]<type>|@<template>} 
+              [params <param>=<value> [<param>=<value>...]] 
+              [meta <attribute>=<value> [<attribute>=<value>...]] 
+              [utilization <attribute>=<value> [<attribute>=<value>...]] 
+              [operations id_spec 
+                  [op op_type [<attribute>=<value>...] ...]]
+      crm(live)configure# primitive vip ocf:heartbeat:IPaddr params ip=128.224.162.17 nic=eth0 cidr_netmask=23
+      crm(live)configure# show 
+      node $id="14721552" ha1-ubuntu
+      node $id="14721767" pek-kkang-d1
+      node $id="14721961" ha1-ubuntu
+      primitive vip ocf:heartbeat:IPaddr \
+      	params ip="128.224.162.17" nic="eth0" cidr_netmask="23"
+      property $id="cib-bootstrap-options" \
+      	dc-version="1.1.10-42f2063" \
+      	cluster-infrastructure="corosync"
+      crm(live)configure# verify
+      crm(live)configure# commit
+
+此时打开http://128.224.162.17，显示的是虚拟机ha1-ubuntu. 停掉corosync后，http://128.224.162.17应指向pek-kkang-d1。
+
+      root@pek-kkang-d1:~# crm status
+      Last updated: Fri Dec 12 08:27:13 2014
+      Last change: Fri Dec 12 08:19:17 2014 via cibadmin on ha1-ubuntu
+      Stack: corosync
+      Current DC: pek-kkang-d1 (14721767) - partition WITHOUT quorum
+      Version: 1.1.10-42f2063
+      3 Nodes configured
+      1 Resources configured
+      
+      
+      Online: [ pek-kkang-d1 ]
+      OFFLINE: [ ha1-ubuntu ha1-ubuntu ]
+      root@pek-kkang-d1:~# crm status
+      Last updated: Fri Dec 12 08:27:13 2014
+      Last change: Fri Dec 12 08:19:17 2014 via cibadmin on ha1-ubuntu
+      Stack: corosync
+      Current DC: pek-kkang-d1 (14721767) - partition WITHOUT quorum
+      Version: 1.1.10-42f2063
+      3 Nodes configured
+      1 Resources configured
+      
+      
+      Online: [ pek-kkang-d1 ]
+      OFFLINE: [ ha1-ubuntu ha1-ubuntu ]
+
+**但是设置并未生效**。这是因为此时的集群状态为"WITHOUT quorum"(红色标记)，即已经失去了quorum，此时集群服务本身已经不满足正常运行的条件，这对于只有两节点的集群来讲是不合理的。因此，我们可以通过如下的命令来修改忽略quorum不能满足的集群状态检查：property no-quorum-policy=ignore
+
+      crm(live)# configure 
+      crm(live)configure# property no-quorum-policy=ignore
+      crm(live)configure# verify 
+      crm(live)configure# commit
+
+片刻便可看到http://128.224.162.17指向到pek-kkang-d1。
+
+##### 其他
+还有其他设置如资源黏性等，可以参考man手册。
 
