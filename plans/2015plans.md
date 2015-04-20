@@ -1,8 +1,9 @@
-Plans for 2015:
+#Plans for 2015#
+----------------
 
-Must:
+## Must: ##
 * 保持健康
-  减脂 保护眼睛 保证睡眠 不熬夜 少食多餐保护好胃
+      减脂 保护眼睛 保证睡眠 不熬夜 少食多餐保护好胃
 
 * 减脂：目标是75kg
 
@@ -13,9 +14,10 @@ Must:
 * 吉他会弹beyong的两首曲子
 
 * 对感兴趣的项目贡献代码：
-  |- git
-  |- vim及插件
-  |- 网络协议栈
+    * git
+    * vim及插件
+    * 网络协议栈
+
 
 * shell编程
 
@@ -25,19 +27,24 @@ Must:
 
 * 说好的python高手呢？
 
-* 掌握一到两门新语言：perl haskell/lua go
+* 掌握一到两门新语言：
+    * perl
+    * haskell/lua
+    * go
+
 
 * 必须精通掌握的技能
-  |- shell/bash/posix shell
-  |- make/Makefile
-  |- autotools
-  |- python
-  |- 网络协议 - 这个太虚
-  |- dbus
-  |- udev
+    * shell/bash/posix shell
+    * make/Makefile
+    * autotools
+    * python
+    * 网络协议 - 这个太虚
+    * dbus
+    * udev
 
 
-Maybe:
+-------------
+## Maybe: ##
 * Tour to USA.
 * Tour to Su/Hang/Wuxi...
 * 易经
