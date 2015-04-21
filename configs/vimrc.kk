@@ -1,48 +1,26 @@
 " kk's vim profile <freeordie.k@gmail.com>
-
-" from https://github.com/gmarik/vundle
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-" original repos on github
-Bundle 'tpope/vim-fugitive'
-
-Bundle 'Lokaltog/vim-easymotion'
-let g:EasyMotion_leader_key = ','
-
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-" vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-" non github repos
-Bundle 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (ie. when working on your own plugin)
-" Bundle 'file:///Users/gmarik/path/to/plugin'
-" ...
-
-filetype plugin indent on     " required!
-
 "
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
-" end from vundle
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle is short for Vim bundle and is a Vim plugin manager.
+" $ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-Bundle "Lokaltog/powerline", {'rtp': 'powerline/bindings/vim/'}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'L9'
+
+Plugin 'git://git.wincent.com/command-t.git'
+
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+
+" kk legacy
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " powerline{
 set laststatus=2
 set encoding=utf-8
@@ -50,13 +28,38 @@ set t_Co=256
 let g:Powerline_symbols = 'fancy'
 " }
 
-" Bundle "Valloric/YouCompleteMe"
+Plugin 'Valloric/YouCompleteMe'
 " YouCompleteMe {
-let g:ycm_global_ycm_extra_conf = 'YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_confirm_extra_conf = 0
+
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }
+" UltiSnips ???
+
+Plugin 'sontek/dotfiles'
+" ./install.sh vim
+" tomasr/molokai 不好用啊，为什么需要它？
+
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " Begin custom settings
 set ai
