@@ -14,8 +14,6 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'L9'
 
-Plugin 'git://git.wincent.com/command-t.git'
-
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 
@@ -42,7 +40,9 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }
 " UltiSnips ???
 
-Plugin 'sontek/dotfiles'
+Plugin 'kien/ctrlp.vim'
+
+" Plugin 'sontek/dotfiles'
 " ./install.sh vim
 " tomasr/molokai 不好用啊，为什么需要它？
 
