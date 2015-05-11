@@ -10,10 +10,12 @@
 	ui = true
 
 [alias]
-	st = status
-	co = checkout
-	new = !gitk --all --not ORIG_HEAD
 	br = branch
+	ci = commit
+	co = checkout
+	last = log -1 HEAD
+	new = !gitk --all --not ORIG_HEAD
+	st = status
 
 [sendemail]
         confirm = always
