@@ -11,6 +11,7 @@ alias ll='ls -l'
 alias grep='grep --color'
 alias cp='cp -v'
 alias mv='mv -v'
+alias dv='dirs -v'
 
 shopt -s autocd
 shopt -s cdspell
