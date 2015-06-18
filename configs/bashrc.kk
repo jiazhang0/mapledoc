@@ -1,7 +1,5 @@
 # bash profile for myself
 
-echo 'source bashrc.kk'
-
 # show Capital files first
 export LC_COLLATE=C
 
