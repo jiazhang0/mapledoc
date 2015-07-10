@@ -12,9 +12,11 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias dv='dirs -v'
 
-shopt -s autocd
-shopt -s cdspell
+if ps | grep $$ | grep -q bash; then
+	shopt -s autocd
+	shopt -s cdspell
 
-# record history in every console
-shopt -s histappend
-PROMPT_COMMAND='history -a'
+	# record history in every console
+	shopt -s histappend
+	PROMPT_COMMAND='history -a'
+fi
