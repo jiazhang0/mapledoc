@@ -4,6 +4,7 @@
 export LC_COLLATE=C
 
 # alias
+alias g='git'
 alias m='make'
 alias ls='ls --color'
 alias ll='ls -l'
