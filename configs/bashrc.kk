@@ -12,6 +12,7 @@ alias grep='grep --color'
 alias cp='cp -v'
 alias mv='mv -v'
 alias dv='dirs -v'
+alias dc='dirs -c'
 
 if ps | grep $$ | grep -q bash; then
 	shopt -s autocd
