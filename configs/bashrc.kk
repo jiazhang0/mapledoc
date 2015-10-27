@@ -22,3 +22,6 @@ if ps | grep $$ | grep -q bash; then
 	shopt -s histappend
 	PROMPT_COMMAND='history -a'
 fi
+
+# for input method
+export QT_IM_MODULE=fcitx
