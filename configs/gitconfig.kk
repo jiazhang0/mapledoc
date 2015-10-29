@@ -11,10 +11,13 @@
 
 [alias]
 	br = branch
+	ca = commit --amend
 	ci = commit
+	cs = commit -s
 	co = checkout
 	last = log -1 HEAD
 	new = !gitk --all --not ORIG_HEAD
+	pl = pull
 	st = status
 
 [sendemail]
