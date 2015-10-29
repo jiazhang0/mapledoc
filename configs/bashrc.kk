@@ -25,3 +25,6 @@ fi
 
 # for input method
 export QT_IM_MODULE=fcitx
+
+# add $HOME/bin to PATH
+export PATH=$HOME/bin:$PATH:$HOME/wrbin
