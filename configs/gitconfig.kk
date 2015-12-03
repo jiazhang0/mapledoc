@@ -13,8 +13,9 @@
 	br = branch
 	ca = commit --amend
 	ci = commit
-	cs = commit -s
 	co = checkout
+	cp = cherry-pick
+	cs = commit -s
 	last = log -1 HEAD
 	new = !gitk --all --not ORIG_HEAD
 	pl = pull
