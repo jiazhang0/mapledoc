@@ -29,7 +29,7 @@
 - smartindent
 - autoindent
 
-## locate itesm in a program
+## locate items in a program
 - [Ctrl-I ]Ctrl-I: 	Search for a word under the cursor in the current file and any brought in by #include directives.
 - gd gD: 		go definition of a variable
 - ]CTRL-D , [CTRL-D: 	Jump to a macro definition.
@@ -42,7 +42,11 @@
 - :abbreviate kk Kai Kai
 
 ## Mapping
-- :map			--> It should be other maps
+- :map : For the Normal, Insert, Visual, and Command-line modes
+- :imap : For the Insert mode only
+- :cmap : For the Command-line mode only
+- :nmap : For the Normal mode only
+- :vmap : For the Visual mode only
 
 ## Save current configure
 - :mkvimrc filename
