@@ -1,34 +1,57 @@
 " kk's vim profile <freeordie.k@gmail.com>
 "
 " Vundle is short for Vim bundle and is a Vim plugin manager.
-" $ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
-
 Plugin 'L9'
+Plugin 'kien/ctrlp.vim'
+Plugin 'bronson/vim-trailing-whitespace'
 
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" toggle with `<Leader>ig` and default color is very ugly
+Plugin 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+
+Plugin 'hdima/python-syntax'
+let python_highlight_all = 1
 
 
-" kk legacy
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-" powerline{
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 set laststatus=2
-set encoding=utf-8
+set encoding=UTF-8
 set t_Co=256
 let g:Powerline_symbols = 'fancy'
+
+
+" 自动补全配置 {
+set completeopt=longest,menu	"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif	"离开插入模式后自动关闭预览窗口
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"	"回车即选中当前项
+
+"上下左右键的行为 会显示其他信息
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " }
+
 
 Plugin 'Valloric/YouCompleteMe'
 " YouCompleteMe {
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/git/mapledoc/configs/ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_confirm_extra_conf = 0
@@ -38,13 +61,21 @@ let mapleader = ","
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }
-" UltiSnips ???
 
-Plugin 'kien/ctrlp.vim'
 
-" Plugin 'sontek/dotfiles'
-" ./install.sh vim
-" tomasr/molokai 不好用啊，为什么需要它？
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 call vundle#end()            " required
@@ -60,7 +91,7 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 
 " Begin custom settings
@@ -85,7 +116,7 @@ function! PythonSet()
         endif
 endfunction
 
-au BufReadPost * call PythonSet()
+"au BufReadPost * call PythonSet()
 
 " folding
 set foldenable
