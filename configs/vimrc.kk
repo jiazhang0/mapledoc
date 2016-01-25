@@ -3,6 +3,7 @@
 " Vundle is short for Vim bundle and is a Vim plugin manager.
 " $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+let mapleader = ","
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -12,12 +13,16 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'easymotion/vim-easymotion'
+
+Plugin 'scrooloose/nerdtree'
+map <c-t> :NERDTreeToggle<CR>
 
 " toggle with `<Leader>ig` and default color is very ugly
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -27,7 +32,6 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 
 Plugin 'hdima/python-syntax'
 let python_highlight_all = 1
-
 
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 set laststatus=2
@@ -55,8 +59,6 @@ let g:ycm_global_ycm_extra_conf = '~/git/mapledoc/configs/ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_confirm_extra_conf = 0
-
-let mapleader = ","
 
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
