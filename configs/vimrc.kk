@@ -24,6 +24,10 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'scrooloose/nerdtree'
 map <c-t> :NERDTreeToggle<CR>
 
+Plugin 'davidhalter/jedi-vim'
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#completions_command = "<C-i>"
+
 " toggle with `<Leader>ig` and default color is very ugly
 Plugin 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 0
